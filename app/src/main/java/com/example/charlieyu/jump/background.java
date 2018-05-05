@@ -45,7 +45,7 @@ public class background extends View implements Observer{
 
     @Override
     public void onDraw(Canvas canvas) {
-        this.model = model;
+
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(3);
 //        canvas.drawRect(30, 30, 80, 80, paint);
@@ -61,7 +61,7 @@ public class background extends View implements Observer{
         int maxY = model.getMaxY();
         int middleX = maxX/2;
         int middleY = maxY/2;
-
+        int theta=2;
         canvas.drawLine(middleX,maxY-200, middleX, maxY,paint);
 
 //        canvas.drawLine(0,middleY,middleX,maxY-200, paint);
@@ -75,21 +75,17 @@ public class background extends View implements Observer{
 
         double x = middleX;
         double y = maxY-200;
-
-        double factor = Math.sqrt(50*50/2);
-
+        double initialLength = Math.sqrt((middleX-x)*(middleX-x)+(maxY-200)*(maxY-200));
+        double offsetLength=initialLength*Math.tan(theta);
+        double newoffset=offsetLength/Math.sqrt(2);
+        double factor = 0;
         for (int i = 0; i < 10; i++){
-            x+=factor;
-            y-=factor;
+            x+=newoffset;
+            y-=newoffset;
             float x2 = (float) x;
             float y2 = (float) y;
             canvas.drawLine(-683,0,x2,y2, paint);
-
-
         }
-
-
-
     }
 
     @Override
