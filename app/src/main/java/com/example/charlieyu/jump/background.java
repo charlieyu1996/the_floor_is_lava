@@ -1,19 +1,12 @@
 package com.example.charlieyu.jump;
 
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.os.Bundle;
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.view.View;
 
-import java.io.Console;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -50,48 +43,60 @@ public class background extends View implements Observer{
 
         paint.setColor(Color.BLACK);
         paint.setStrokeWidth(3);
-//        canvas.drawRect(30, 30, 80, 80, paint);
-//        paint.setStrokeWidth(0);
-//        paint.setColor(Color.CYAN);
-//        canvas.drawRect(33, 60, 77, 77, paint );
-//        paint.setColor(Color.YELLOW);
-//        canvas.drawRect(33, 33, 77, 60, paint );
 
-//        canvas.drawLine(0, 0, 20, 20, paint);
-//        canvas.drawLine(20, 0, 0, 20, paint);
-        int maxX = model.getMaxX();
-        int maxY = model.getMaxY();
-        int middleX = maxX/2;
-        int middleY = maxY/2;
-        double theta=.1;
+        float maxX = model.getMaxX();
+        float maxY = model.getMaxY();
+        float middleX = maxX/2;
+        float middleY = maxY/2;
+        double theta=.09;
+        float offset=200;
+        float initialPointLeftX=-middleX - middleX;
+        float initialPointRightX=middleX*3 + middleX;
+        float initialPointY=maxY - middleX - middleX - 750;
+
         canvas.drawLine(middleX,maxY-200, middleX, maxY,paint);
 
-//        canvas.drawLine(0,middleY,middleX,maxY-200, paint);
-//        canvas.drawLine(maxX,middleY,middleX,maxY-200, paint);
+        //Left and Right Initial points with offset
+        canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY-200, paint);
+        canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-200,paint);
 
-        canvas.drawLine(-683, 0,middleX, maxY-200, paint);
-        canvas.drawLine(maxX+700, 0, middleX, maxY-200, paint);
+        //Lef and Right Initial points without offset
+        canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY, paint);
+        canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY,paint);
 
-        canvas.drawLine(-683, 0,middleX, maxY, paint);
-        canvas.drawLine(maxX+683, 0, middleX, maxY, paint);
+        canvas.drawRect(middleX, maxY-middleX,middleX,maxY-200,paint);
 
-        double x = middleX;
-        double y = maxY-200;
-        double initialLength = Math.sqrt((middleX-x)*(middleX-x)+(maxY-200)*(maxY-200));
+        float x, x2 ;
+        float y, y2 ;
+
+        x=x2=middleX;
+        y=y2=maxY-200;
+
+        float initialLengthLeft = (float) Math.sqrt(Math.pow((middleX-initialPointLeftX),2)+Math.pow((maxY-200-initialPointY),2));
+        float initalLengthRight = (float) Math.sqrt(Math.pow((middleX-initialPointRightX),2)+Math.pow((maxY-200-initialPointY),2));
 
         double dec = .0005;
-        double factor = 0;
-        for (int i = 0; i < 12; i++){
-            double offsetLength=initialLength*Math.tan(theta);
-            double newoffset=offsetLength/Math.sqrt(2);
-            x+=newoffset;
-            y-=newoffset;
-            float x2 = (float) x;
-            float y2 = (float) y;
-            canvas.drawLine(-683,0,x2,y2, paint);
+
+        for (int i = 0; i < 8; i++){
+
+            float offsetLengthLeft= (float) (initialLengthLeft*Math.tan(theta));
+            float newoffsetLeft= (float) (offsetLengthLeft/Math.sqrt(2));
+
+            float offsetLengthRight= (float) (initalLengthRight*Math.tan(theta));
+            float newoffsetRight =(float) (offsetLengthRight/Math.sqrt(2));
+
+            x+=newoffsetLeft;
+            y-=newoffsetLeft;
+            x2-=newoffsetRight;
+            y2-=newoffsetRight;
+
+            canvas.drawLine(initialPointLeftX,initialPointY,x,y, paint);
+            canvas.drawLine(initialPointRightX,initialPointY,x2,y2, paint);
             dec -=.00005;
             theta = theta + dec;
-            Log.d("fucktheta: ",Float.toString((float) theta));
+            //Log.d("fucktheta: ",Float.toString((float) theta));
+            Log.d("newoffset: ",Float.toString((float) initialLengthLeft));
+            //og.d("fucktheta: ",Float.toString((float) theta));
         }
     }
 
