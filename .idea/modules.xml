@@ -4,7 +4,6 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Jump.iml" filepath="$PROJECT_DIR$/Jump.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/the_floor_is_lava.iml" filepath="$PROJECT_DIR$/the_floor_is_lava.iml" />
     </modules>
   </component>
