@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Jump</string>
+    <string name="title">Not Jump</string>
+    <string name="startButton">Start</string>
+    <string name="optionButton">Options</string>
+    <string name="backButton">Back</string>
+    <string name="darkMode">Dark Mode</string>
 </resources>

@@ -40,15 +40,21 @@ public class background extends View implements Observer{
 
     @Override
     public void onDraw(Canvas canvas) {
-
-        paint.setColor(Color.BLACK);
-        paint.setStrokeWidth(3);
+        boolean darkMode = model.getDarkMode();
+        if (darkMode){
+            setBackgroundColor(Color.BLACK);
+            paint.setColor(Color.WHITE);
+        }else{
+            setBackgroundColor(Color.WHITE);
+            paint.setColor(Color.BLACK);
+        }
+        paint.setStrokeWidth(5);
 
         float maxX = model.getMaxX();
         float maxY = model.getMaxY();
         float middleX = maxX/2;
         float middleY = maxY/2;
-        double theta=.09;
+        double theta=.11;
         float offset=200;
         float initialPointLeftX=-middleX - middleX;
         float initialPointRightX=middleX*3 + middleX;
@@ -75,9 +81,9 @@ public class background extends View implements Observer{
         float initialLengthLeft = (float) Math.sqrt(Math.pow((middleX-initialPointLeftX),2)+Math.pow((maxY-200-initialPointY),2));
         float initalLengthRight = (float) Math.sqrt(Math.pow((middleX-initialPointRightX),2)+Math.pow((maxY-200-initialPointY),2));
 
-        double dec = .0005;
+        double dec = .01;
 
-        for (int i = 0; i < 8; i++){
+        for (int i = 0; i < 9; i++){
 
             float offsetLengthLeft= (float) (initialLengthLeft*Math.tan(theta));
             float newoffsetLeft= (float) (offsetLengthLeft/Math.sqrt(2));
@@ -92,8 +98,8 @@ public class background extends View implements Observer{
 
             canvas.drawLine(initialPointLeftX,initialPointY,x,y, paint);
             canvas.drawLine(initialPointRightX,initialPointY,x2,y2, paint);
-            dec -=.00005;
-            theta = theta + dec;
+            dec *= 0.95;
+            theta = theta - dec;
             //Log.d("fucktheta: ",Float.toString((float) theta));
             Log.d("newoffset: ",Float.toString((float) initialLengthLeft));
             //og.d("fucktheta: ",Float.toString((float) theta));

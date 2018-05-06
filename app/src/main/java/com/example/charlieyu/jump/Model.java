@@ -14,11 +14,13 @@ public class Model extends Observable {
     // Private Variables
     private int maxX;
     private int maxY;
+    private boolean darkMode;
 
     // Constructor
     Model(){
         maxX = 0;
         maxY = 0;
+        darkMode = false;
     }
 
     // set maxX and maxY
@@ -35,6 +37,16 @@ public class Model extends Observable {
     // get maxY
     public int getMaxY(){
         return maxY;
+    }
+
+    // set the darkMode
+    public void setDarkMode(boolean change){
+        darkMode = change;
+    }
+
+    // get the darkMode boolean
+    public boolean getDarkMode(){
+        return darkMode;
     }
 
 
