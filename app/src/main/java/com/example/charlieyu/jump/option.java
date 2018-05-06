@@ -46,6 +46,10 @@ public class option extends AppCompatActivity implements Observer {
 
         // the dark mode switch
         final Switch darkModeSwitch = findViewById(R.id.darkModeSwitch);
+        boolean check = model.getDarkMode();
+        darkModeSwitch.setChecked(check);
+
+
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
