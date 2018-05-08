@@ -9,6 +9,11 @@ import android.graphics.Color;
 
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import android.os.Handler;
 
 /**
  * Created by charlieyu on 2018-05-04.
@@ -19,8 +24,7 @@ public class background extends View implements Observer{
     Model model;
     Paint paint = new Paint();
 
-
-
+    Canvas canvas;
 
 //
 //    public background(Context context, AttributeSet attrs) {
@@ -39,7 +43,7 @@ public class background extends View implements Observer{
     }
 
     @Override
-    public void onDraw(Canvas canvas) {
+    public void onDraw(final Canvas canvas) {
         boolean darkMode = model.getDarkMode();
         if (darkMode){
             setBackgroundColor(Color.BLACK);
@@ -56,9 +60,9 @@ public class background extends View implements Observer{
         float middleY = maxY/2;
         double theta=.11;
         float offset=200;
-        float initialPointLeftX=-middleX - middleX;
-        float initialPointRightX=middleX*3 + middleX;
-        float initialPointY=maxY - middleX - middleX - 750;
+        final float initialPointLeftX=-middleX - middleX;
+        final float initialPointRightX=middleX*3 + middleX;
+        final float initialPointY=maxY - middleX - middleX - 750;
 
         canvas.drawLine(middleX,maxY-200, middleX, maxY,paint);
 
@@ -84,7 +88,6 @@ public class background extends View implements Observer{
         double dec = .01;
 
         for (int i = 0; i < 9; i++){
-
             float offsetLengthLeft= (float) (initialLengthLeft*Math.tan(theta));
             float newoffsetLeft= (float) (offsetLengthLeft/Math.sqrt(2));
 
@@ -96,15 +99,15 @@ public class background extends View implements Observer{
             x2-=newoffsetRight;
             y2-=newoffsetRight;
 
-            canvas.drawLine(initialPointLeftX,initialPointY,x,y, paint);
-            canvas.drawLine(initialPointRightX,initialPointY,x2,y2, paint);
             dec *= 0.95;
             theta = theta - dec;
-            //Log.d("fucktheta: ",Float.toString((float) theta));
-            Log.d("newoffset: ",Float.toString((float) initialLengthLeft));
-            //og.d("fucktheta: ",Float.toString((float) theta));
+            canvas.drawLine(initialPointLeftX,initialPointY,x,y, paint);
+            canvas.drawLine(initialPointRightX,initialPointY,x2,y2, paint);
+
+            //postInvalidateDelayed(TimeUnit.SECONDS.toMillis(10000000));
         }
     }
+
 
     @Override
     public void update(Observable o, Object arg){}

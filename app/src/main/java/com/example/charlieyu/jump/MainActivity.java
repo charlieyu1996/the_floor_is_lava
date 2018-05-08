@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -19,6 +22,7 @@ import java.util.Observer;
 public class MainActivity extends AppCompatActivity implements Observer {
     // Private Variables
     background backGround;
+    private GameView gameView;
     Model model;
 
 
@@ -30,6 +34,20 @@ public class MainActivity extends AppCompatActivity implements Observer {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
+
+        gameView = new GameView(this);
+//        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
+//                        LinearLayout.LayoutParams.MATCH_PARENT,
+//                        LinearLayout.LayoutParams.MATCH_PARENT);
+//
+//        addContentView(gameView,linearLayoutParams);
+
+//        LayoutInflater inflater = getLayoutInflater();
+//        getWindow().addContentView(inflater.inflate(R.layout.options, null), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
+//                ViewGroup.LayoutParams.FILL_PARENT));
+
+        //addContentView(gameView,new ViewGroup.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.MATCH_PARENT ));
+
 
         // Get model instance
         model = Model.getInstance();
@@ -47,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements Observer {
         backGround = new background(this);
         backGround.setBackgroundColor(Color.WHITE);
         //setContentView(backGround);
+        // draw the GameView
+        gameView = new GameView(this);
+        gameView.setBackgroundColor(Color.WHITE);
+
 
 
 
@@ -54,7 +76,16 @@ public class MainActivity extends AppCompatActivity implements Observer {
         final ImageButton startButton = findViewById(R.id.buttonPlay);
         startButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                setContentView(backGround);
+                Intent intent = new Intent(v.getContext(), GameActivity.class);
+                startActivity(intent);
+
+
+                //setContentView(backGround);
+
+                //setContentView(gameView);
+
+
+
             }
         });
 
