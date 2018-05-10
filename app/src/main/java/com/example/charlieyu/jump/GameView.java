@@ -8,22 +8,27 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.PopupMenu;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.ViewPropertyAnimator;
+import android.widget.RelativeLayout;
 
 import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+
 /**
  * Created by charlieyu on 2018-05-06.
  */
 
-public class GameView extends SurfaceView implements Runnable, Observer {
+public class GameView extends SurfaceView implements Runnable, Observer, SurfaceHolder.Callback {
     Model model;
 
     float maxX;
@@ -59,6 +64,8 @@ public class GameView extends SurfaceView implements Runnable, Observer {
     public GameView(Context context){
 
         super(context);
+
+        getHolder().addCallback(this);
         // Get model instance
         model = Model.getInstance();
         model.addObserver(this);
@@ -145,15 +152,15 @@ public class GameView extends SurfaceView implements Runnable, Observer {
             final float initialPointRightX=middleX*3 + middleX;
             final float initialPointY=maxY - middleX - middleX - 750;
 
-            canvas.drawLine(middleX,maxY-200, middleX, maxY,paint);
+            canvas.drawLine(middleX,maxY-200-sa.getOffset500(), middleX, maxY-sa.getOffset500(),paint);
 
             //Left and Right Initial points with offset
-            canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY-200, paint);
-            canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-200,paint);
+            canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY-200-sa.getOffset500(), paint);
+            canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-200-sa.getOffset500(),paint);
 
             //Lef and Right Initial points without offset
-            canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY, paint);
-            canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY,paint);
+            canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY-sa.getOffset500(), paint);
+            canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-sa.getOffset500(),paint);
 
             canvas.drawRect(middleX, maxY-middleX,middleX,maxY-200,paint);
 
@@ -197,8 +204,8 @@ public class GameView extends SurfaceView implements Runnable, Observer {
 
 
             for (int i = 0; i < sa.getCounter(); i++){
-                canvas.drawLine(initialPointLeftX, initialPointY, sa.getxNum()[i], sa.getyNum()[i], paint);
-                canvas.drawLine(initialPointRightX, initialPointY, sa.getxNum2()[i], sa.getyNum2()[i], paint);
+                canvas.drawLine(initialPointLeftX, initialPointY, sa.getxNum()[i], sa.getyNum()[i]-sa.getOffset500(), paint);
+                canvas.drawLine(initialPointRightX, initialPointY, sa.getxNum2()[i], sa.getyNum2()[i]-sa.getOffset500(), paint);
             }
 
 
@@ -210,6 +217,22 @@ public class GameView extends SurfaceView implements Runnable, Observer {
 
 
 
+    // the touch event, when the user touches the screen
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent){
+        switch (motionEvent.getAction() & MotionEvent.ACTION_MASK){
+            case MotionEvent.ACTION_UP:
+
+
+                break;
+            case MotionEvent.ACTION_DOWN:
+
+
+                break;
+
+        }
+        return true;
+    }
 
 
     private void control(){
@@ -233,5 +256,24 @@ public class GameView extends SurfaceView implements Runnable, Observer {
         playing = true;
         gameThread = new Thread(this);
         gameThread.start();
+    }
+
+
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+        Canvas c = getHolder().lockCanvas();
+        draw(c);
+        getHolder().unlockCanvasAndPost(c);
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+
     }
 }
