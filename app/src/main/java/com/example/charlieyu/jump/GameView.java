@@ -5,6 +5,7 @@ import android.database.Observable;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +20,7 @@ import android.view.ViewPropertyAnimator;
 import android.widget.RelativeLayout;
 
 import java.util.Observer;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
@@ -221,9 +223,35 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
                         Log.d("Intersection Points: ", String.valueOf(points[0].x+","+points[0].y));
                     }
                 }
-                taint.setStrokeWidth(9);
-                canvas.drawLine((float) points[0].x, (float)points[0].y, (float) points[10].x, (float)points[10].y, taint);
-                canvas.drawLine((float) points[1].x, (float)points[1].y, (float) points[11].x, (float)points[11].y, taint);
+                //canvas.drawLine((float) points[0].x, (float)points[0].y, (float) points[10].x, (float)points[10].y, taint);
+                //canvas.drawLine((float) points[1].x, (float)points[1].y, (float) points[11].x, (float)points[11].y, taint);
+
+                int j = 0;
+                for (int i = 0; i < 90; i++) {
+
+                    if (i != 9 && i != 19 && i != 29 && i != 39 && i != 49 && i != 59 && i != 69 && i!= 79 && i!=89 && i!=99) {
+                        Path path = new Path();
+//                        path.moveTo((float) points[0].x, (float) points[0].y);
+//                        path.lineTo((float) points[10].x, (float) points[10].y);
+//                        path.lineTo((float) points[11].x, (float) points[11].y);
+//                        path.lineTo((float) points[1].x, (float) points[1].y);
+//                        path.lineTo((float) points[0].x, (float) points[0].y);
+
+
+                        path.moveTo((float) points[i].x, (float) points[i].y);
+                        path.lineTo((float) points[i + 10].x, (float) points[i + 10].y);
+                        path.lineTo((float) points[i + 11].x, (float) points[i + 11].y);
+                        path.lineTo((float) points[i + 1].x, (float) points[i + 1].y);
+                        path.lineTo((float) points[i].x, (float) points[i].y);
+                        j++;
+                        Random rnd = new Random();
+                        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                        taint.setColor(color);
+                        canvas.drawPath(path, taint);
+                    }
+                }
+
+
 
             }
 
