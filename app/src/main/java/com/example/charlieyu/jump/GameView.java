@@ -46,7 +46,7 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
     float initalLengthRight;
     double dec;
     int limit;
-    int counter;
+    int counter=0;
 
 
     private startAnimation sa;
@@ -59,8 +59,11 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
 
     // For drawing
     private Paint paint;
+    private Paint taint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
+    Point[] points = new Point[2000];
+
 
     // Constructor
     public GameView(Context context){
@@ -101,7 +104,7 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         //initialize draw
         surfaceHolder = getHolder();
         paint = new Paint();
-
+        taint =new Paint();
 
     }
 
@@ -206,17 +209,22 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
             Point D = new Point(initialPointRightX, initialPointY);
 
             if(sa.getCounter()>=8) {
+                counter=0;
                 for (int i = 0; i < 10; i++) {
                     Point A = new Point(sa.getxNum()[i], sa.getyNum()[i]);
                     for (int j=0; j<10; j++) {
                         Point B = new Point(sa.getxNum2()[j], sa.getyNum2()[j]);
                         Point intersection = lineLineIntersection(A, C, B, D);
-                        Point[] points = new Point[60];
-                        points[i] = intersection;
-                        Log.d("Intersection Points: ", String.valueOf(sa.getxNum()[0]+","+sa.getyNum()[0]));
-                        canvas.drawLine(0, 0, (float) points[i].x, (float)points[i].y, paint);
+                        points[counter] = intersection;
+                        counter++;
+                        Log.d("Index: ", String.valueOf(counter));
+                        Log.d("Intersection Points: ", String.valueOf(points[0].x+","+points[0].y));
                     }
                 }
+                taint.setStrokeWidth(9);
+                canvas.drawLine((float) points[0].x, (float)points[0].y, (float) points[10].x, (float)points[10].y, taint);
+                canvas.drawLine((float) points[1].x, (float)points[1].y, (float) points[11].x, (float)points[11].y, taint);
+
             }
 
 
