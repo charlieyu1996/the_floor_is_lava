@@ -23,6 +23,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import static com.example.charlieyu.jump.Point.lineLineIntersection;
+
 
 /**
  * Created by charlieyu on 2018-05-06.
@@ -204,20 +206,17 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
             Point D = new Point(initialPointRightX, initialPointY);
 
             if(sa.getCounter()>=8) {
-                for (int i = 0; i < 9; i++) {
+                for (int i = 0; i < 10; i++) {
                     Point A = new Point(sa.getxNum()[i], sa.getyNum()[i]);
-                    for (int j=0; j<9; j++) {
+                    for (int j=0; j<10; j++) {
                         Point B = new Point(sa.getxNum2()[j], sa.getyNum2()[j]);
                         Point intersection = lineLineIntersection(A, C, B, D);
-                        Point[] points = new Point[50];
+                        Point[] points = new Point[60];
                         points[i] = intersection;
-                        Log.d("Intersection Points: ", String.valueOf(points[i].x + "," + points[i].y));
+                        Log.d("Intersection Points: ", String.valueOf(sa.getxNum()[0]+","+sa.getyNum()[0]));
+                        canvas.drawLine(0, 0, (float) points[i].x, (float)points[i].y, paint);
                     }
                 }
-                canvas.drawLine(0, 0, (float) 540.0000137369143,(float) 1265.8528292298472, paint);
-                canvas.drawLine(0, 0, (float) 372.9033581921977,(float) 1131.1592251880948, paint);
-                canvas.drawLine(0, 0, (float) 707.0966740832372,(float) 1131.1592190333165, paint);
-                canvas.drawLine(0, 0, (float) 540.0000188855953,(float) 1021.6537898965632, paint);
             }
 
 

@@ -56,14 +56,15 @@ public class startAnimation implements Observer{
             y -= newoffsetLeft;
             x2 -= newoffsetRight;
             y2 -= newoffsetRight;
-            if (counter < 9) {
-                if (counter >= 1) {
-                    Log.d("counter num", String.valueOf(counter));
+            if (counter < 10) {
+                Log.d("counter num", String.valueOf(counter));
+                if (counter > 1) {
+                    //Log.d("counter num", String.valueOf(counter));
                     xNum[counter] = xNum[counter - 1] + newoffsetLeft;
                     yNum[counter] = yNum[counter - 1] - newoffsetLeft;
                     xNum2[counter] = xNum2[counter - 1] - newoffsetRight;
                     yNum2[counter] = yNum2[counter - 1] - newoffsetRight;
-                } else {
+                } else if (counter==1){
                     xNum[counter] += newoffsetLeft;
                     yNum[counter] -= newoffsetLeft;
                     xNum2[counter] -= newoffsetRight;
@@ -108,14 +109,18 @@ public class startAnimation implements Observer{
 
 
         // array of x y
-        xNum = new float[9];
-        yNum = new float[9];
-        xNum2 = new float[9];
-        yNum2 = new float[9];
-        xNum[0] = x;
-        yNum[0] = y;
-        xNum2[0] = x;
-        yNum2[0] = y;
+        xNum = new float[10];
+        yNum = new float[10];
+        xNum2 = new float[10];
+        yNum2 = new float[10];
+        xNum[0]=xNum2[0]=middleX;
+        yNum[0]=yNum2[0]=maxY-200;
+
+
+        xNum[1] = x;
+        yNum[1] = y;
+        xNum2[1] = x;
+        yNum2[1] = y;
 
 
         // start point of V
@@ -143,13 +148,13 @@ public class startAnimation implements Observer{
             x2 -= newoffsetRight;
             y2 -= newoffsetRight;
             if (counter < 9) {
-                if (counter >= 1) {
+                if (counter > 1) {
                     Log.d("counter num", String.valueOf(counter));
                     xNum[counter] = xNum[counter - 1] + newoffsetLeft;
                     yNum[counter] = yNum[counter - 1] - newoffsetLeft;
                     xNum2[counter] = xNum2[counter - 1] - newoffsetRight;
                     yNum2[counter] = yNum2[counter - 1] - newoffsetRight;
-                } else {
+                } else if(counter==1) {
                     xNum[counter] += newoffsetLeft;
                     yNum[counter] -= newoffsetLeft;
                     xNum2[counter] -= newoffsetRight;
@@ -174,7 +179,7 @@ public class startAnimation implements Observer{
 
 
 
-        if (counter < 9 && offset500 == 0){
+        if (counter < 10 && offset500 == 0){
             Timer timer = new Timer();
             ExampleTask task = new ExampleTask();
             // Executes the task in 500 milliseconds
