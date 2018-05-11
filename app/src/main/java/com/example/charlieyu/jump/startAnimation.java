@@ -35,6 +35,7 @@ public class startAnimation implements Observer{
     float[] yNum;
     float[] xNum2;
     float[] yNum2;
+    int offset500;
 
 
 
@@ -116,6 +117,10 @@ public class startAnimation implements Observer{
         xNum2[0] = x;
         yNum2[0] = y;
 
+
+        // start point of V
+        offset500 = 500;
+
         //Init observers
         model.initObservers();
     }
@@ -123,14 +128,64 @@ public class startAnimation implements Observer{
 
 
     public void update(){
+        if (counter < 3){
+            // This method is called once the time is elapsed
+            float offsetLengthLeft = (float) (initialLengthLeft * Math.tan(theta));
+            float newoffsetLeft = (float) (offsetLengthLeft / Math.sqrt(2));
 
-        if (counter < 9){
+            float offsetLengthRight = (float) (initalLengthRight * Math.tan(theta));
+            float newoffsetRight = (float) (offsetLengthRight / Math.sqrt(2));
+
+
+
+            x += newoffsetLeft;
+            y -= newoffsetLeft;
+            x2 -= newoffsetRight;
+            y2 -= newoffsetRight;
+            if (counter < 9) {
+                if (counter >= 1) {
+                    Log.d("counter num", String.valueOf(counter));
+                    xNum[counter] = xNum[counter - 1] + newoffsetLeft;
+                    yNum[counter] = yNum[counter - 1] - newoffsetLeft;
+                    xNum2[counter] = xNum2[counter - 1] - newoffsetRight;
+                    yNum2[counter] = yNum2[counter - 1] - newoffsetRight;
+                } else {
+                    xNum[counter] += newoffsetLeft;
+                    yNum[counter] -= newoffsetLeft;
+                    xNum2[counter] -= newoffsetRight;
+                    yNum2[counter] -= newoffsetRight;
+                }
+
+                dec *= 0.95;
+                theta = theta - dec;
+                counter++;
+            }
+
+
+        }
+
+
+        if (offset500 > 0 && counter >= 3){
+            offset500-=10;
+        }
+
+
+
+
+
+
+        if (counter < 9 && offset500 == 0){
             Timer timer = new Timer();
             ExampleTask task = new ExampleTask();
             // Executes the task in 500 milliseconds
             timer.schedule(task, 200);
         }
     }
+
+    public int getOffset500(){
+        return offset500;
+    }
+
 
     public float getX(){
         return x;

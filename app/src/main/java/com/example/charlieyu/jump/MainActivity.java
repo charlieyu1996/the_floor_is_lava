@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
@@ -22,31 +23,44 @@ import java.util.Observer;
 public class MainActivity extends AppCompatActivity implements Observer {
     // Private Variables
     background backGround;
-    private GameView gameView;
+     GameView gameView;
+    dynamicBackground dB;
     Model model;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+
 
         gameView = new GameView(this);
+        dB = new dynamicBackground(this);
+        setContentView(R.layout.activity_main);
+
+        addContentView(dB,  new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        //dB.update();
+
+        //gameView = new GameView(this);
 //        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
 //                        LinearLayout.LayoutParams.MATCH_PARENT,
 //                        LinearLayout.LayoutParams.MATCH_PARENT);
-//
 //        addContentView(gameView,linearLayoutParams);
 
 //        LayoutInflater inflater = getLayoutInflater();
-//        getWindow().addContentView(inflater.inflate(R.layout.options, null), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-//                ViewGroup.LayoutParams.FILL_PARENT));
+//        getWindow().addContentView(inflater.inflate(R.layout.options, null), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+//                ViewGroup.LayoutParams.MATCH_PARENT));
 
-        //addContentView(gameView,new ViewGroup.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT , ViewGroup.LayoutParams.MATCH_PARENT ));
+      //  addContentView(gameView,new ViewGroup.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT , ViewGroup.LayoutParams.WRAP_CONTENT ));
+
+
+//            FrameLayout rootLayout = findViewById(android.R.id.content);
+//        View.inflate(this, R.layout.activity_main, rootLayout);
+//
+
 
 
         // Get model instance
@@ -62,12 +76,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
         model.setMax(maxX, maxY);
 
         // draw the background
-        backGround = new background(this);
-        backGround.setBackgroundColor(Color.WHITE);
-        //setContentView(backGround);
-        // draw the GameView
-        gameView = new GameView(this);
-        gameView.setBackgroundColor(Color.WHITE);
+//        backGround = new background(this);
+//        backGround.setBackgroundColor(Color.WHITE);
+//        //setContentView(backGround);
+//        // draw the GameView
+//        gameView = new GameView(this);
+//        gameView.setBackgroundColor(Color.WHITE);
 
 
 
@@ -78,14 +92,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
                 startActivity(intent);
-
-
-                //setContentView(backGround);
-
-                //setContentView(gameView);
-
-
-
             }
         });
 
