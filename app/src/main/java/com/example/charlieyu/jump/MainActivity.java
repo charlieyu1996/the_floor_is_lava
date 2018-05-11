@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         int maxX = mdispSize.x;
         int maxY = mdispSize.y;
         model.setMax(maxX, maxY);
+        model.calcCoords();
 
         // draw the background
 //        backGround = new background(this);
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements Observer {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), GameActivity.class);
                 startActivity(intent);
+                // don't do activity transition activity
+                overridePendingTransition(0, 0);
             }
         });
 

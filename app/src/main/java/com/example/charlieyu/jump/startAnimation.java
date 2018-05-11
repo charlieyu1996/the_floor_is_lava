@@ -44,38 +44,42 @@ public class startAnimation implements Observer{
         @Override
         public void run() {
             // This method is called once the time is elapsed
-            float offsetLengthLeft = (float) (initialLengthLeft * Math.tan(theta));
-            float newoffsetLeft = (float) (offsetLengthLeft / Math.sqrt(2));
+//            float offsetLengthLeft = (float) (initialLengthLeft * Math.tan(theta));
+//            float newoffsetLeft = (float) (offsetLengthLeft / Math.sqrt(2));
+//
+//            float offsetLengthRight = (float) (initalLengthRight * Math.tan(theta));
+//            float newoffsetRight = (float) (offsetLengthRight / Math.sqrt(2));
+//
+//
+//
+//            x += newoffsetLeft;
+//            y -= newoffsetLeft;
+//            x2 -= newoffsetRight;
+//            y2 -= newoffsetRight;
+//            if (counter < 10) {
+//                Log.d("counter num", String.valueOf(counter));
+//                if (counter > 1) {
+//                    //Log.d("counter num", String.valueOf(counter));
+//                    xNum[counter] = xNum[counter - 1] + newoffsetLeft;
+//                    yNum[counter] = yNum[counter - 1] - newoffsetLeft;
+//                    xNum2[counter] = xNum2[counter - 1] - newoffsetRight;
+//                    yNum2[counter] = yNum2[counter - 1] - newoffsetRight;
+//                } else if (counter==1){
+//                    xNum[counter] += newoffsetLeft;
+//                    yNum[counter] -= newoffsetLeft;
+//                    xNum2[counter] -= newoffsetRight;
+//                    yNum2[counter] -= newoffsetRight;
+//                }
+//
+//                dec *= 0.95;
+//                theta = theta - dec;
+//                counter++;
+//            }
 
-            float offsetLengthRight = (float) (initalLengthRight * Math.tan(theta));
-            float newoffsetRight = (float) (offsetLengthRight / Math.sqrt(2));
 
-
-
-            x += newoffsetLeft;
-            y -= newoffsetLeft;
-            x2 -= newoffsetRight;
-            y2 -= newoffsetRight;
-            if (counter < 10) {
-                Log.d("counter num", String.valueOf(counter));
-                if (counter > 1) {
-                    //Log.d("counter num", String.valueOf(counter));
-                    xNum[counter] = xNum[counter - 1] + newoffsetLeft;
-                    yNum[counter] = yNum[counter - 1] - newoffsetLeft;
-                    xNum2[counter] = xNum2[counter - 1] - newoffsetRight;
-                    yNum2[counter] = yNum2[counter - 1] - newoffsetRight;
-                } else if (counter==1){
-                    xNum[counter] += newoffsetLeft;
-                    yNum[counter] -= newoffsetLeft;
-                    xNum2[counter] -= newoffsetRight;
-                    yNum2[counter] -= newoffsetRight;
-                }
-
-                dec *= 0.95;
-                theta = theta - dec;
+            if (counter < 10){
                 counter++;
             }
-
 
 
         }
@@ -89,38 +93,38 @@ public class startAnimation implements Observer{
 
 
 
-        maxX = model.getMaxX();
-        maxY = model.getMaxY();
-        middleX = maxX/2;
-        theta=.11;
-        initialPointLeftX=-middleX - middleX;
-        initialPointRightX=middleX*3 + middleX;
-        initialPointY=maxY - middleX - middleX - 750;
-        x=x2=middleX;
-        y=y2=maxY-200;
-
-        initialLengthLeft = (float) Math.sqrt(Math.pow((middleX-initialPointLeftX),2)+Math.pow((maxY-200-initialPointY),2));
-        initalLengthRight = (float) Math.sqrt(Math.pow((middleX-initialPointRightX),2)+Math.pow((maxY-200-initialPointY),2));
-        dec = .01;
-        limit = 9;
+//        maxX = model.getMaxX();
+//        maxY = model.getMaxY();
+//        middleX = maxX/2;
+//        theta=.11;
+//        initialPointLeftX=-middleX - middleX;
+//        initialPointRightX=middleX*3 + middleX;
+//        initialPointY=maxY - middleX - middleX - 750;
+//        x=x2=middleX;
+//        y=y2=maxY-200;
+//
+//        initialLengthLeft = (float) Math.sqrt(Math.pow((middleX-initialPointLeftX),2)+Math.pow((maxY-200-initialPointY),2));
+//        initalLengthRight = (float) Math.sqrt(Math.pow((middleX-initialPointRightX),2)+Math.pow((maxY-200-initialPointY),2));
+//        dec = .01;
+//        limit = 9;
 
         // count how many lines should we draw
         counter = 0;
 
 
         // array of x y
-        xNum = new float[10];
-        yNum = new float[10];
-        xNum2 = new float[10];
-        yNum2 = new float[10];
-        xNum[0]=xNum2[0]=middleX;
-        yNum[0]=yNum2[0]=maxY-200;
-
-
-        xNum[1] = x;
-        yNum[1] = y;
-        xNum2[1] = x;
-        yNum2[1] = y;
+//        xNum = new float[10];
+//        yNum = new float[10];
+//        xNum2 = new float[10];
+//        yNum2 = new float[10];
+//        xNum[0]=xNum2[0]=middleX;
+//        yNum[0]=yNum2[0]=maxY-200;
+//
+//
+//        xNum[1] = x;
+//        yNum[1] = y;
+//        xNum2[1] = x;
+//        yNum2[1] = y;
 
 
         // start point of V
@@ -134,39 +138,42 @@ public class startAnimation implements Observer{
 
     public void update(){
         if (counter < 3){
+
+
+
             // This method is called once the time is elapsed
-            float offsetLengthLeft = (float) (initialLengthLeft * Math.tan(theta));
-            float newoffsetLeft = (float) (offsetLengthLeft / Math.sqrt(2));
-
-            float offsetLengthRight = (float) (initalLengthRight * Math.tan(theta));
-            float newoffsetRight = (float) (offsetLengthRight / Math.sqrt(2));
-
-
-
-            x += newoffsetLeft;
-            y -= newoffsetLeft;
-            x2 -= newoffsetRight;
-            y2 -= newoffsetRight;
-            if (counter < 9) {
-                if (counter > 1) {
-                    Log.d("counter num", String.valueOf(counter));
-                    xNum[counter] = xNum[counter - 1] + newoffsetLeft;
-                    yNum[counter] = yNum[counter - 1] - newoffsetLeft;
-                    xNum2[counter] = xNum2[counter - 1] - newoffsetRight;
-                    yNum2[counter] = yNum2[counter - 1] - newoffsetRight;
-                } else if(counter==1) {
-                    xNum[counter] += newoffsetLeft;
-                    yNum[counter] -= newoffsetLeft;
-                    xNum2[counter] -= newoffsetRight;
-                    yNum2[counter] -= newoffsetRight;
-                }
-
-                dec *= 0.95;
-                theta = theta - dec;
-                counter++;
-            }
+//            float offsetLengthLeft = (float) (initialLengthLeft * Math.tan(theta));
+//            float newoffsetLeft = (float) (offsetLengthLeft / Math.sqrt(2));
+//
+//            float offsetLengthRight = (float) (initalLengthRight * Math.tan(theta));
+//            float newoffsetRight = (float) (offsetLengthRight / Math.sqrt(2));
 
 
+
+//            x += newoffsetLeft;
+//            y -= newoffsetLeft;
+//            x2 -= newoffsetRight;
+//            y2 -= newoffsetRight;
+            //if (counter < 9) {
+//                if (counter > 1) {
+//                    Log.d("counter num", String.valueOf(counter));
+//                    xNum[counter] = xNum[counter - 1] + newoffsetLeft;
+//                    yNum[counter] = yNum[counter - 1] - newoffsetLeft;
+//                    xNum2[counter] = xNum2[counter - 1] - newoffsetRight;
+//                    yNum2[counter] = yNum2[counter - 1] - newoffsetRight;
+//                } else if(counter==1) {
+//                    xNum[counter] += newoffsetLeft;
+//                    yNum[counter] -= newoffsetLeft;
+//                    xNum2[counter] -= newoffsetRight;
+//                    yNum2[counter] -= newoffsetRight;
+//                }
+//
+//                dec *= 0.95;
+//                theta = theta - dec;
+
+           // }
+
+            counter++;
         }
 
 

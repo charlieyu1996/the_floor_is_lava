@@ -64,7 +64,7 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
     private Paint taint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
-    Point[] points = new Point[2000];
+    //Point[] points = new Point[100];
 
 
     // Constructor
@@ -209,63 +209,100 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
           */
             Point C = new Point(initialPointLeftX, initialPointY);
             Point D = new Point(initialPointRightX, initialPointY);
-
             if(sa.getCounter()>=8) {
                 counter=0;
-                for (int i = 0; i < 10; i++) {
-                    Point A = new Point(sa.getxNum()[i], sa.getyNum()[i]);
-                    for (int j=0; j<10; j++) {
-                        Point B = new Point(sa.getxNum2()[j], sa.getyNum2()[j]);
-                        Point intersection = lineLineIntersection(A, C, B, D);
-                        points[counter] = intersection;
-                        counter++;
-                        Log.d("Index: ", String.valueOf(counter));
-                        Log.d("Intersection Points: ", String.valueOf(points[0].x+","+points[0].y));
-                    }
-                }
-                //canvas.drawLine((float) points[0].x, (float)points[0].y, (float) points[10].x, (float)points[10].y, taint);
-                //canvas.drawLine((float) points[1].x, (float)points[1].y, (float) points[11].x, (float)points[11].y, taint);
+//                for (int i = 0; i < 10; i++) {
+//                    Point A = new Point(model.getxNum()[i], model.getyNum()[i]);
+//                    for (int j=0; j<10; j++) {
+//                        Point B = new Point(model.getxNum2()[j], model.getyNum2()[j]);
+//                        Point intersection = lineLineIntersection(A, C, B, D);
+//                        points[counter] = intersection;
+//                        counter++;
+//                        //Log.d("Index: ", String.valueOf(counter));
+//                        //Log.d("Intersection Points: ", String.valueOf(points[0].x+","+points[0].y));
+//                    }
+//                }
 
-                int j = 0;
-                for (int i = 0; i < 90; i++) {
 
+
+//                for (int i = 0; i < 90; i++) {
+//                    if (i != 9 && i != 19 && i != 29 && i != 39 && i != 49 && i != 59 && i != 69 && i!= 79 && i!=89 && i!=99) {
+//                        Path path = new Path();
+//                        path.moveTo((float) points[i].x, (float) points[i].y);
+//                        path.lineTo((float) points[i + 10].x, (float) points[i + 10].y);
+//                        path.lineTo((float) points[i + 11].x, (float) points[i + 11].y);
+//                        path.lineTo((float) points[i + 1].x, (float) points[i + 1].y);
+//                        path.lineTo((float) points[i].x, (float) points[i].y);
+//                       // Random rnd = new Random();
+//                       // int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+//                        taint.setColor(Color.WHITE);
+//                        canvas.drawPath(path, taint);
+//                    }
+//                }
+
+                Point points[] = model.getPoints();
+                int colorOffset=0;
+                int colorLimit = 7;
+                for (int i = 0; i < 90; i++){
                     if (i != 9 && i != 19 && i != 29 && i != 39 && i != 49 && i != 59 && i != 69 && i!= 79 && i!=89 && i!=99) {
                         Path path = new Path();
-//                        path.moveTo((float) points[0].x, (float) points[0].y);
-//                        path.lineTo((float) points[10].x, (float) points[10].y);
-//                        path.lineTo((float) points[11].x, (float) points[11].y);
-//                        path.lineTo((float) points[1].x, (float) points[1].y);
-//                        path.lineTo((float) points[0].x, (float) points[0].y);
-
-
                         path.moveTo((float) points[i].x, (float) points[i].y);
                         path.lineTo((float) points[i + 10].x, (float) points[i + 10].y);
                         path.lineTo((float) points[i + 11].x, (float) points[i + 11].y);
                         path.lineTo((float) points[i + 1].x, (float) points[i + 1].y);
                         path.lineTo((float) points[i].x, (float) points[i].y);
-                        j++;
-                        Random rnd = new Random();
-                        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-                        taint.setColor(color);
+                        if (colorOffset == 0) {
+                            taint.setColor(Color.argb(255,128,0,0));
+                        }else if (colorOffset == 1){
+                            taint.setColor(Color.argb(255,178,34,34));
+                        }else if (colorOffset == 2){
+                            taint.setColor(Color.argb(255,165,42,42));
+                        }else if (colorOffset == 3){
+                            taint.setColor(Color.argb(255,205,92,92));
+                        }else if (colorOffset == 4){
+                            taint.setColor(Color.argb(255,255,0,0));
+                        }else if (colorOffset == 5){
+                            taint.setColor(Color.argb(255,255,69,0));
+                        }else if (colorOffset == 6){
+                            taint.setColor(Color.argb(255,255,127,80));
+                        }else if (colorOffset == 7){
+                            taint.setColor(Color.argb(255,240,128,128));
+                        }else if (colorOffset == 8){
+                            taint.setColor(Color.argb(255,233,150,122));
+                        }else if (colorOffset == 9){
+                            taint.setColor(Color.argb(255,255,160,122));
+                        }else if (colorOffset == 10){
+                            taint.setColor(Color.argb(255,255,165,0));
+                        }else if (colorOffset == 11){
+                            taint.setColor(Color.argb(255,255,215,0));
+                        }else if (colorOffset == 12){
+                            taint.setColor(Color.argb(255,240,230,140));
+                        }else if (colorOffset == 13){
+                            taint.setColor(Color.argb(255,238,232,170));
+                        }else if (colorOffset == 14){
+                            taint.setColor(Color.argb(255,165,42,42));
+                        }else if (colorOffset == 15){
+                            taint.setColor(Color.argb(255,165,42,42));
+                        }else if (colorOffset == 16){
+                            taint.setColor(Color.argb(255,165,42,42));
+                        }
                         canvas.drawPath(path, taint);
+                        colorOffset++;
+                        if (colorLimit == colorOffset){
+                            colorLimit++;
+                            colorOffset = 0;
+                        }
                     }
                 }
-
-
-
             }
-
-
 
             for (int i = 0; i < sa.getCounter(); i++){
-                canvas.drawLine(initialPointLeftX, initialPointY, sa.getxNum()[i], sa.getyNum()[i]-sa.getOffset500(), paint);
-                canvas.drawLine(initialPointRightX, initialPointY, sa.getxNum2()[i], sa.getyNum2()[i]-sa.getOffset500(), paint);
+                canvas.drawLine(initialPointLeftX, initialPointY, model.getxNum()[i], model.getyNum()[i]-sa.getOffset500(), paint);
+                canvas.drawLine(initialPointRightX, initialPointY, model.getxNum2()[i], model.getyNum2()[i]-sa.getOffset500(), paint);
             }
-
 
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
-
     }
 
 
@@ -277,10 +314,8 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_UP:
 
-
                 break;
             case MotionEvent.ACTION_DOWN:
-
 
                 break;
 
