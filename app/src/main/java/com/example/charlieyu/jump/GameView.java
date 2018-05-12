@@ -53,6 +53,8 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
 
     private startAnimation sa;
 
+    private Player player;
+
     // check if the game is playing
     volatile boolean playing = true;
 
@@ -79,6 +81,7 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
 
         //init sa
         sa = new startAnimation(context);
+        player = new Player();
 
 
 
@@ -301,6 +304,23 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
                 canvas.drawLine(initialPointRightX, initialPointY, model.getxNum2()[i], model.getyNum2()[i]-sa.getOffset500(), paint);
             }
 
+
+//            if (sa.getCounter()>=8){
+//                paint.setColor(Color.BLACK);
+//                Point bot = player.getBot();
+//                Point left = player.getLeft();
+//                Point right = player.getRight();
+//                Point top = player.getTop();
+//
+//                Path playerCell = new Path();
+//                playerCell.moveTo((float) bot.x, (float) bot.y);
+//                playerCell.lineTo((float) right.x, (float) right.y);
+//                playerCell.lineTo((float) top.x, (float) top.y);
+//                playerCell.lineTo((float) left.x, (float) left.y);
+//                playerCell.lineTo((float) bot.x, (float) bot.y);
+//                canvas.drawPath(playerCell, paint);
+//            }
+
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -313,7 +333,7 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
     public boolean onTouchEvent(MotionEvent motionEvent){
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_UP:
-
+                player.update();
                 break;
             case MotionEvent.ACTION_DOWN:
 

@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         int maxX = mdispSize.x;
         int maxY = mdispSize.y;
         model.setMax(maxX, maxY);
+        //calculate all the coords at once
         model.calcCoords();
 
         // draw the background

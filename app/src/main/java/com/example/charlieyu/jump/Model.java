@@ -36,7 +36,7 @@ public class Model extends Observable {
     private float[] yNum2;
 
     // coordinates for the cells
-    private Point[] points;
+    public Point[] points;
 
     // Constructor
     Model(){
