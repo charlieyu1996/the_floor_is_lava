@@ -54,7 +54,7 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
     private startAnimation sa;
 
     private Player player;
-
+//
     // check if the game is playing
     volatile boolean playing = true;
 
@@ -100,9 +100,6 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         dec = .01;
         limit = 9;
 
-
-
-
         //Init observers
         model.initObservers();
 
@@ -112,9 +109,6 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         taint =new Paint();
 
     }
-
-
-
 
     @Override
     public void run() {
@@ -156,8 +150,6 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
             float maxY = model.getMaxY();
             float middleX = maxX/2;
             float middleY = maxY/2;
-            double theta=.11;
-            float offset=200;
             final float initialPointLeftX=-middleX - middleX;
             final float initialPointRightX=middleX*3 + middleX;
             final float initialPointY=maxY - middleX - middleX - 750;
@@ -173,87 +165,21 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
             canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-sa.getOffset500(),paint);
 
             canvas.drawRect(middleX, maxY-middleX,middleX,maxY-200,paint);
-
-
-            float x, x2 ;
-            float y, y2 ;
-
-            x=x2=middleX;
-            y=y2=maxY-200;
-
-            float initialLengthLeft = (float) Math.sqrt(Math.pow((middleX-initialPointLeftX),2)+Math.pow((maxY-200-initialPointY),2));
-            float initalLengthRight = (float) Math.sqrt(Math.pow((middleX-initialPointRightX),2)+Math.pow((maxY-200-initialPointY),2));
-
-            double dec = .01;
-
-            int limit = 9;
-
-/*
-            for (int i = 0; i < limit; i++) {
-
-
-                float offsetLengthLeft = (float) (initialLengthLeft * Math.tan(theta));
-                float newoffsetLeft = (float) (offsetLengthLeft / Math.sqrt(2));
-
-                float offsetLengthRight = (float) (initalLengthRight * Math.tan(theta));
-                float newoffsetRight = (float) (offsetLengthRight / Math.sqrt(2));
-
-                x += newoffsetLeft;
-                y -= newoffsetLeft;
-                x2 -= newoffsetRight;
-                y2 -= newoffsetRight;
-
-                dec *= 0.95;
-                theta = theta - dec;
-                canvas.drawLine(initialPointLeftX, initialPointY, x, y, paint);
-                canvas.drawLine(initialPointRightX, initialPointY, x2, y2, paint);
-
-            }
-          */
-            Point C = new Point(initialPointLeftX, initialPointY);
-            Point D = new Point(initialPointRightX, initialPointY);
+;
             if(sa.getCounter()>=8) {
                 counter=0;
-//                for (int i = 0; i < 10; i++) {
-//                    Point A = new Point(model.getxNum()[i], model.getyNum()[i]);
-//                    for (int j=0; j<10; j++) {
-//                        Point B = new Point(model.getxNum2()[j], model.getyNum2()[j]);
-//                        Point intersection = lineLineIntersection(A, C, B, D);
-//                        points[counter] = intersection;
-//                        counter++;
-//                        //Log.d("Index: ", String.valueOf(counter));
-//                        //Log.d("Intersection Points: ", String.valueOf(points[0].x+","+points[0].y));
-//                    }
-//                }
-
-
-
-//                for (int i = 0; i < 90; i++) {
-//                    if (i != 9 && i != 19 && i != 29 && i != 39 && i != 49 && i != 59 && i != 69 && i!= 79 && i!=89 && i!=99) {
-//                        Path path = new Path();
-//                        path.moveTo((float) points[i].x, (float) points[i].y);
-//                        path.lineTo((float) points[i + 10].x, (float) points[i + 10].y);
-//                        path.lineTo((float) points[i + 11].x, (float) points[i + 11].y);
-//                        path.lineTo((float) points[i + 1].x, (float) points[i + 1].y);
-//                        path.lineTo((float) points[i].x, (float) points[i].y);
-//                       // Random rnd = new Random();
-//                       // int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
-//                        taint.setColor(Color.WHITE);
-//                        canvas.drawPath(path, taint);
-//                    }
-//                }
 
                 Point points[] = model.getPoints();
                 int colorOffset=0;
                 int colorLimit = 7;
                 for (int i = 0; i < 90; i++){
-                    if (i != 9 && i != 19 && i != 29 && i != 39 && i != 49 && i != 59 && i != 69 && i!= 79 && i!=89 && i!=99) {
+                    if (i != 9 && i != 19 && i != 29 && i != 39 && i != 49 && i != 59 && i != 69 && i!= 79 && i!=89 ) {
                         Path path = new Path();
-                        path.moveTo((float) points[i].x, (float) points[i].y);
-                        path.lineTo((float) points[i + 10].x, (float) points[i + 10].y);
-                        path.lineTo((float) points[i + 11].x, (float) points[i + 11].y);
-                        path.lineTo((float) points[i + 1].x, (float) points[i + 1].y);
-                        path.lineTo((float) points[i].x, (float) points[i].y);
+                        path.moveTo( points[i].x, points[i].y);
+                        path.lineTo( points[i + 10].x, points[i + 10].y);
+                        path.lineTo( points[i + 11].x, points[i + 11].y);
+                        path.lineTo( points[i + 1].x, points[i + 1].y);
+                        path.lineTo( points[i].x, points[i].y);
                         if (colorOffset == 0) {
                             taint.setColor(Color.argb(255,128,0,0));
                         }else if (colorOffset == 1){
@@ -304,29 +230,25 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
                 canvas.drawLine(initialPointRightX, initialPointY, model.getxNum2()[i], model.getyNum2()[i]-sa.getOffset500(), paint);
             }
 
+            if (sa.getCounter()>=8){
+                paint.setColor(Color.BLACK);
+                Point bot = player.getBot();
+                Point left = player.getLeft();
+                Point right = player.getRight();
+                Point top = player.getTop();
 
-//            if (sa.getCounter()>=8){
-//                paint.setColor(Color.BLACK);
-//                Point bot = player.getBot();
-//                Point left = player.getLeft();
-//                Point right = player.getRight();
-//                Point top = player.getTop();
-//
-//                Path playerCell = new Path();
-//                playerCell.moveTo((float) bot.x, (float) bot.y);
-//                playerCell.lineTo((float) right.x, (float) right.y);
-//                playerCell.lineTo((float) top.x, (float) top.y);
-//                playerCell.lineTo((float) left.x, (float) left.y);
-//                playerCell.lineTo((float) bot.x, (float) bot.y);
-//                canvas.drawPath(playerCell, paint);
-//            }
+                Path playerCell = new Path();
+                playerCell.moveTo( bot.x, bot.y);
+                playerCell.lineTo( right.x, right.y);
+                playerCell.lineTo( top.x, top.y);
+                playerCell.lineTo( left.x, left.y);
+                playerCell.lineTo( bot.x, bot.y);
+                canvas.drawPath(playerCell, paint);
+            }
 
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
-
-
-
 
     // the touch event, when the user touches the screen
     @Override
@@ -334,6 +256,7 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_UP:
                 player.update();
+                update();
                 break;
             case MotionEvent.ACTION_DOWN:
 

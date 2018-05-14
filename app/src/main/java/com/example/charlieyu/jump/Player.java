@@ -14,7 +14,7 @@ import java.util.Set;
  */
 
 public class Player implements Observer{
-    Model model;
+    Model models;
     // coordinates
 
     Point bot;
@@ -26,25 +26,26 @@ public class Player implements Observer{
 
     // constructor
     public Player(){
-
-        counter = 0;
+        bot = new Point(0,0);
+        left = new Point(0,0);
+        right = new Point(0,0);
+        top = new Point(0,0);
+        counter = 1;
         // Get model instance
-        model = Model.getInstance();
-        model.addObserver(this);
-
-        Log.d("LUL: ", String.valueOf(model.points[0]));
+        models = Model.getInstance();
+        models.addObserver(this);
 
         // Starting position
-//        bot.x = model.points[0].x;
-//        bot.y = model.points[0].y;
-//        left.x = model.points[1].x;
-//        left.y = model.points[1].y;
-//        top.x = model.points[11].x;
-//        top.y = model.points[11].y;
-//        right.x = model.points[10].x;
-//        right.y = model.points[10].y;
+        bot.y = Model.getInstance().getPoints()[0].y;
+        bot.x=Model.getInstance().getPoints()[0].x;
+        left.x = Model.getInstance().getPoints()[1].x;
+        left.y = Model.getInstance().getPoints()[1].y;
+        top.x = Model.getInstance().getPoints()[11].x;
+        top.y = Model.getInstance().getPoints()[11].y;
+        right.x = Model.getInstance().getPoints()[10].x;
+        right.y = Model.getInstance().getPoints()[10].y;
 
-        model.initObservers();
+      //  models.initObservers();
     }
 
     // getter for the four points
@@ -67,17 +68,20 @@ public class Player implements Observer{
     public void update(){
         //Set<Integer> set = new HashSet<Integer>();
         //set.add(9);
-//        if (counter != 9 && counter != 19 && counter != 29 && counter != 39 && counter != 49 && counter != 59 && counter != 69 && counter != 79 && counter !=89 && counter !=99) {
-//            bot.x = model.points[counter].x;
-//            bot.y = model.points[counter].y;
-//            left.x = model.points[counter+1].x;
-//            left.y = model.points[counter+1].y;
-//            top.x = model.points[counter+11].x;
-//            top.y = model.points[counter+11].y;
-//            right.x = model.points[counter+10].x;
-//            right.y = model.points[counter+10].y;
-//            counter++;
-//        }
+        if (counter != 9 && counter != 19 && counter != 29 && counter != 39 && counter != 49 && counter != 59 && counter != 69 && counter != 79 && counter !=89 && counter !=99) {
+            bot.x = models.getPoints()[counter].x;
+            bot.y = models.getPoints()[counter].y;
+            left.x = models.getPoints()[counter+1].x;
+            left.y = models.getPoints()[counter+1].y;
+            top.x = models.getPoints()[counter+11].x;
+            top.y = models.getPoints()[counter+11].y;
+            right.x = models.getPoints()[counter+10].x;
+            right.y = models.getPoints()[counter+10].y;
+            Log.d("Checking:", String.valueOf(counter));
+        }else {
+
+        }
+        counter++;
     }
 
     @Override

@@ -55,11 +55,6 @@ public class dynamicBackground extends View implements Observer{
         canvas.drawColor(Color.TRANSPARENT);
         paint.setColor(Color.BLACK);
 
-
-       // canvas.drawLine(1,1,200,200,paint);
-
-
-
         float maxX = model.getMaxX();
         float maxY = model.getMaxY();
         float middleX = maxX/2;
@@ -110,13 +105,6 @@ public class dynamicBackground extends View implements Observer{
             canvas.drawLine(initialPointLeftX,initialPointY,x,y-500, paint);
             canvas.drawLine(initialPointRightX,initialPointY,x2,y2-500, paint);
         }
-
-
-//        for (int i = 0; i < sa.getCounter(); i++){
-//            canvas.drawLine(initialPointLeftX, initialPointY, sa.getxNum()[i], sa.getyNum()[i], paint);
-//            canvas.drawLine(initialPointRightX, initialPointY, sa.getxNum2()[i], sa.getyNum2()[i], paint);
-//        }
-
 
     }
 

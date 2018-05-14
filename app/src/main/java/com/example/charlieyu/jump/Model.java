@@ -14,7 +14,7 @@ public class Model extends Observable {
     static Model getInstance(){return instances;}
 
     // Private Variables
-    private boolean darkMode;
+    public boolean darkMode;
 
     private int maxX;
     private int maxY;
@@ -36,10 +36,10 @@ public class Model extends Observable {
     private float[] yNum2;
 
     // coordinates for the cells
-    public Point[] points;
+    private Point[] points;
 
     // Constructor
-    Model(){
+    public Model(){
         maxX = 0;
         maxY = 0;
         middleX = 0;

@@ -35,33 +35,10 @@ public class MainActivity extends AppCompatActivity implements Observer {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
-        gameView = new GameView(this);
         dB = new dynamicBackground(this);
         setContentView(R.layout.activity_main);
 
         addContentView(dB,  new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        //dB.update();
-
-        //gameView = new GameView(this);
-//        LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams(
-//                        LinearLayout.LayoutParams.MATCH_PARENT,
-//                        LinearLayout.LayoutParams.MATCH_PARENT);
-//        addContentView(gameView,linearLayoutParams);
-
-//        LayoutInflater inflater = getLayoutInflater();
-//        getWindow().addContentView(inflater.inflate(R.layout.options, null), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-//                ViewGroup.LayoutParams.MATCH_PARENT));
-
-      //  addContentView(gameView,new ViewGroup.LayoutParams( ViewGroup.LayoutParams.WRAP_CONTENT , ViewGroup.LayoutParams.WRAP_CONTENT ));
-
-
-//            FrameLayout rootLayout = findViewById(android.R.id.content);
-//        View.inflate(this, R.layout.activity_main, rootLayout);
-//
-
-
 
         // Get model instance
         model = Model.getInstance();
@@ -76,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements Observer {
         model.setMax(maxX, maxY);
         //calculate all the coords at once
         model.calcCoords();
-
+        gameView = new GameView(this);
         // draw the background
 //        backGround = new background(this);
 //        backGround.setBackgroundColor(Color.WHITE);
