@@ -43,9 +43,6 @@ public class dynamicBackground extends View implements Observer{
 
         //init sa
         sa = new startAnimation(context);
-
-
-
     }
 
     @Override

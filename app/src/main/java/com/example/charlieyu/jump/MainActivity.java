@@ -22,7 +22,7 @@ import java.util.Observer;
 
 public class MainActivity extends AppCompatActivity implements Observer {
     // Private Variables
-    background backGround;
+    //background backGround;
      GameView gameView;
     dynamicBackground dB;
     Model model;

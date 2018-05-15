@@ -26,15 +26,6 @@ public class GameActivity extends AppCompatActivity {
         gameView = new GameView(this);
 
         setContentView(gameView);
-
-
-
-
-//        LayoutInflater inflater = getLayoutInflater();
-//        getWindow().addContentView(inflater.inflate(R.layout.options, null), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-//                ViewGroup.LayoutParams.FILL_PARENT));
-
-
     }
 
     @Override

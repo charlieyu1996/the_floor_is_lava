@@ -1,4 +1,4 @@
-package com.example.charlieyu.jump;
+/*package com.example.charlieyu.jump;
 
 import android.graphics.Paint;
 import android.util.Log;
@@ -18,24 +18,12 @@ import android.os.Handler;
 /**
  * Created by charlieyu on 2018-05-04.
  */
-
+/*
 public class background extends View implements Observer{
     // Private Variables
     Model model;
     Paint paint = new Paint();
 
-    Canvas canvas;
-
-//
-//    public background(Context context, AttributeSet attrs) {
-//        super(context, attrs);
-//
-//    }
-//
-//    public background(Context context, AttributeSet attrs, int defStyle) {
-//        super(context, attrs, defStyle);
-//
-//    }
     public background(Context context) {
         super(context);
         model = Model.getInstance();
@@ -112,3 +100,4 @@ public class background extends View implements Observer{
     @Override
     public void update(Observable o, Object arg){}
 }
+*/
