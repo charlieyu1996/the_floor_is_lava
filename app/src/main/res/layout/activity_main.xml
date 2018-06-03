@@ -17,7 +17,6 @@
     android:layout_height="match_parent"
     tools:context="com.example.charlieyu.jump.MainActivity">
 
-
     <ImageButton
         android:id="@+id/buttonPlay"
         android:layout_width="wrap_content"

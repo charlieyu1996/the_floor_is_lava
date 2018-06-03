@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -19,6 +20,7 @@ import android.view.SurfaceView;
 import android.view.ViewPropertyAnimator;
 import android.widget.RelativeLayout;
 
+import java.io.Console;
 import java.util.Observer;
 import java.util.Random;
 import java.util.Timer;
@@ -83,20 +85,6 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         sa = new startAnimation(context);
         player = new Player();
 
-
-
-        maxX = model.getMaxX();
-        maxY = model.getMaxY();
-        middleX = maxX/2;
-        theta=.11;
-        initialPointLeftX=-middleX - middleX;
-        initialPointRightX=middleX*3 + middleX;
-        initialPointY=maxY - middleX - middleX - 750;
-        x=x2=middleX;
-        y=y2=maxY-200;
-
-        initialLengthLeft = (float) Math.sqrt(Math.pow((middleX-initialPointLeftX),2)+Math.pow((maxY-200-initialPointY),2));
-        initalLengthRight = (float) Math.sqrt(Math.pow((middleX-initialPointRightX),2)+Math.pow((maxY-200-initialPointY),2));
         dec = .01;
         limit = 9;
 
@@ -146,26 +134,22 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
             paint.setStrokeWidth(5);
 
 
-            float maxX = model.getMaxX();
-            float maxY = model.getMaxY();
-            float middleX = maxX/2;
-            float middleY = maxY/2;
-            final float initialPointLeftX=-middleX - middleX;
-            final float initialPointRightX=middleX*3 + middleX;
-            final float initialPointY=maxY - middleX - middleX - 750;
-
-            canvas.drawLine(middleX,maxY-200-sa.getOffset500(), middleX, maxY-sa.getOffset500(),paint);
+            canvas.drawLine(model.getMiddleX(),model.getMaxY()-200-sa.getOffset500(), model.getMiddleX(), model.getMaxY()-sa.getOffset500(),paint);
 
             //Left and Right Initial points with offset
-            canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY-200-sa.getOffset500(), paint);
-            canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-200-sa.getOffset500(),paint);
+            canvas.drawLine(model.getInitialPointLeftX(), model.getInitialPointY(),model.getMiddleX(), model.getMaxY()-200-sa.getOffset500(), paint);
+            canvas.drawLine(model.getInitialPointRightX(),model.getInitialPointY(),model.getMiddleX(),model.getMaxY()-200-sa.getOffset500(),paint);
 
             //Lef and Right Initial points without offset
-            canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY-sa.getOffset500(), paint);
-            canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-sa.getOffset500(),paint);
+            canvas.drawLine(model.getInitialPointLeftX(), model.getInitialPointY(),model.getMiddleX(), model.getMaxY()-sa.getOffset500(), paint);
+            canvas.drawLine(model.getInitialPointRightX(),model.getInitialPointY(),model.getMiddleX(),model.getMaxY()-sa.getOffset500(),paint);
 
-            canvas.drawRect(middleX, maxY-middleX,middleX,maxY-200,paint);
-;
+            canvas.drawRect(model.getMiddleX(), model.getMaxY()-model.getMiddleX(),model.getMiddleX(),model.getMaxY()-200,paint);
+            paint.setColor(Color.GREEN);
+            canvas.drawLine(0,0,717,1601,paint);
+            paint.setColor(Color.BLACK);
+
+/*
             if(sa.getCounter()>=8) {
                 counter=0;
 
@@ -224,10 +208,12 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
                     }
                 }
             }
+*/
 
             for (int i = 0; i < sa.getCounter(); i++){
-                canvas.drawLine(initialPointLeftX, initialPointY, model.getxNum()[i], model.getyNum()[i]-sa.getOffset500(), paint);
-                canvas.drawLine(initialPointRightX, initialPointY, model.getxNum2()[i], model.getyNum2()[i]-sa.getOffset500(), paint);
+                canvas.drawLine(model.getInitialPointLeftX(), model.getInitialPointY(), model.getxNum()[i], model.getyNum()[i]-sa.getOffset500(), paint);
+                canvas.drawLine(model.getInitialPointRightX(), model.getInitialPointY(), model.getxNum2()[i], model.getyNum2()[i]-sa.getOffset500(), paint);
+
             }
 
             if (sa.getCounter()>=8){

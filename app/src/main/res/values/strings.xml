@@ -5,4 +5,6 @@
     <string name="optionButton">Options</string>
     <string name="backButton">Back</string>
     <string name="darkMode">Dark Mode</string>
+    <string name="gamePause">Game Paused</string>
+    <string name="resume">Resume</string>
 </resources>

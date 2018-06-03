@@ -1,5 +1,7 @@
 package com.example.charlieyu.jump;
 
+import android.util.Log;
+
 import java.util.Observable;
 
 import static com.example.charlieyu.jump.Point.lineLineIntersection;
@@ -57,9 +59,10 @@ public class Model extends Observable {
     //calculate the variables
     public void calcCoords(){
         middleX = maxX/2;
-        initialPointLeftX=-middleX - middleX;
-        initialPointRightX=middleX*3 + middleX;
-        initialPointY=maxY - middleX - middleX - 750;
+        initialPointLeftX=-middleX*2;
+        initialPointRightX=middleX*4;
+        initialPointY=(maxY - maxX - middleX- 200);
+
         x=x2=middleX;
         y=y2=maxY-200;
         initialLengthLeft = (float) Math.sqrt(Math.pow((middleX-initialPointLeftX),2)+Math.pow((maxY-200-initialPointY),2));
@@ -73,6 +76,7 @@ public class Model extends Observable {
 
         for (int i = 0; i < 10; i++){
             float offsetLengthLeft = (float) (initialLengthLeft * Math.tan(theta));
+
             float newoffsetLeft = (float) (offsetLengthLeft / Math.sqrt(2));
 
             float offsetLengthRight = (float) (initalLengthRight * Math.tan(theta));
@@ -92,6 +96,7 @@ public class Model extends Observable {
             }
             dec *= 0.95;
             theta = theta - dec;
+            Log.d("POINTS RIGHT INT:", String.valueOf(xNum[i])+","+String.valueOf(yNum[i]));
         }
 
         // calculate the four coords
@@ -105,9 +110,19 @@ public class Model extends Observable {
                 Point intersection = lineLineIntersection(A, C, B, D);
                 points[counter] = intersection;
                 counter++;
+                Log.d("Intersect:",String.valueOf(intersection.x)+','+String.valueOf(intersection.y)+"Points correspond:"+String.valueOf(xNum[i])+","+yNum[i]);
             }
         }
 
+
+        Log.d("initialPointLeftX", String.valueOf(initialPointLeftX));
+        Log.d("initialPointRightX", String.valueOf(initialPointRightX));
+        Log.d("initialPointY", String.valueOf(initialPointY));
+        Log.d("initialLengthLeft", String.valueOf(initialLengthLeft));
+        Log.d("initialLengthRight", String.valueOf(initalLengthRight));
+
+        Log.d("maxX",String.valueOf(maxX));
+        Log.d("maxY",String.valueOf(maxY));
 
 
     }
@@ -137,6 +152,23 @@ public class Model extends Observable {
     public void setMax(int x, int y){
         maxX = x;
         maxY = y;
+    }
+
+    //getter and setter for initialPoints
+    public float getInitialPointLeftX(){
+        return initialPointLeftX;
+    }
+
+    public float getInitialPointRightX(){
+        return initialPointRightX;
+    }
+
+    public float getInitialPointY(){
+        return initialPointY;
+    }
+
+    public float getMiddleX(){
+        return middleX;
     }
 
     // get maxX
