@@ -15,14 +15,20 @@ import java.util.Set;
 
 public class Player implements Observer{
     Model models;
-    // coordinates
-
+    // coordinates for the player cell
     Point bot;
     Point left;
     Point right;
     Point top;
 
     int counter;
+
+    //start and end time
+    long start;
+    long end;
+
+    // if the user is holding down or not
+    boolean hold;
 
     // constructor
     public Player(){
@@ -31,6 +37,8 @@ public class Player implements Observer{
         right = new Point(0,0);
         top = new Point(0,0);
         counter = 1;
+        start = 0;
+        end = 0;
         // Get model instance
         models = Model.getInstance();
         models.addObserver(this);
@@ -44,7 +52,6 @@ public class Player implements Observer{
         top.y = Model.getInstance().getPoints()[11].y;
         right.x = Model.getInstance().getPoints()[10].x;
         right.y = Model.getInstance().getPoints()[10].y;
-
       //  models.initObservers();
     }
 
@@ -65,9 +72,31 @@ public class Player implements Observer{
         return top;
     }
 
+    public void setStart(long time){
+        start = time;
+    }
+
+    public void setEnd(long time){
+        end = time;
+    }
+
+    public long getStart(){
+        return start;
+    }
+
+    public long getEnd(){
+        return end;
+    }
+
+    public void setHold(boolean check){
+        hold = check;
+    }
+
+    public boolean getHold(){
+        return hold;
+    }
+
     public void update(){
-        //Set<Integer> set = new HashSet<Integer>();
-        //set.add(9);
         if (counter != 9 && counter != 19 && counter != 29 && counter != 39 && counter != 49 && counter != 59 && counter != 69 && counter != 79 && counter !=89 && counter !=99) {
             bot.x = models.getPoints()[counter].x;
             bot.y = models.getPoints()[counter].y;
@@ -78,8 +107,6 @@ public class Player implements Observer{
             right.x = models.getPoints()[counter+10].x;
             right.y = models.getPoints()[counter+10].y;
             Log.d("Checking:", String.valueOf(counter));
-        }else {
-
         }
         counter++;
     }

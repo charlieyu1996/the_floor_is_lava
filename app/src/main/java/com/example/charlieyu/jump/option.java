@@ -49,7 +49,7 @@ public class option extends AppCompatActivity implements Observer {
         boolean check = model.getDarkMode();
         darkModeSwitch.setChecked(check);
 
-
+        // if the darkmode switch is pressed
         darkModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -61,22 +61,37 @@ public class option extends AppCompatActivity implements Observer {
             }
         });
 
+        // the line switch
+        final Switch lineSwitch = findViewById(R.id.lineSwitch);
+        boolean checkLine = model.getLineMode();
+        lineSwitch.setChecked(checkLine);
+
+        // if the line switch is pressed
+        lineSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    model.setLineMode(true);
+                }else{
+                    model.setLineMode(false);
+                }
+            }
+        });
 
         // the back button
         final ImageButton backButton = findViewById(R.id.buttonBack);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            finish();
+                finish();
+                overridePendingTransition(R.layout.fade_in, R.layout.fade_out);
             }
         });
 
         //Init observers
         model.initObservers();
-
     }
 
     @Override
     public void update(Observable o, Object arg){}
-
 }

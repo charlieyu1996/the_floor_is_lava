@@ -36,27 +36,9 @@ import static com.example.charlieyu.jump.Point.lineLineIntersection;
 
 public class GameView extends SurfaceView implements Runnable, Observer, SurfaceHolder.Callback {
     Model model;
-
-    float maxX;
-    float maxY;
-    float middleX;
-    double theta;
-    float initialPointLeftX;
-    float initialPointRightX;
-    float initialPointY;
-    float x, x2 ;
-    float y, y2 ;
-    float initialLengthLeft;
-    float initalLengthRight;
-    double dec;
-    int limit;
-    int counter=0;
-
-
     private startAnimation sa;
-
     private Player player;
-//
+
     // check if the game is playing
     volatile boolean playing = true;
 
@@ -68,25 +50,21 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
     private Paint taint;
     private Canvas canvas;
     private SurfaceHolder surfaceHolder;
-    //Point[] points = new Point[100];
 
-
+    // array for color
+    int[] colorArray = new int[17];
+    int[] colorArray2 = new int[17];
     // Constructor
     public GameView(Context context){
-
         super(context);
-
         getHolder().addCallback(this);
         // Get model instance
         model = Model.getInstance();
         model.addObserver(this);
 
-        //init sa
+        //init start animation
         sa = new startAnimation(context);
         player = new Player();
-
-        dec = .01;
-        limit = 9;
 
         //Init observers
         model.initObservers();
@@ -96,10 +74,26 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         paint = new Paint();
         taint =new Paint();
 
+        for (int i = 0; i < 17; i++){
+            if (i == 0){
+                colorArray[i] = 255;
+            }else{
+                colorArray[i] = colorArray[i-1] - 15;
+            }
+        }
+
+        for (int i = 0; i < 17; i++){
+            if (i == 0){
+                colorArray2[i] = 0;
+            }else{
+                colorArray2[i] = colorArray2[i-1] + 15;
+            }
+        }
     }
 
     @Override
     public void run() {
+        // keep looping to update the game view
         while(playing){
             update();
             draw();
@@ -107,20 +101,24 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         }
     }
 
+    // update the game view
     private void update(){
         sa.update();
     }
 
-    public void update(java.util.Observable o, Object arg){
+    // update to the model
+    public void update(java.util.Observable o, Object arg){}
 
-    }
-
+    // drawing the game view
     private void draw(){
         // check the surface if it is valid
         if (surfaceHolder.getSurface().isValid()){
             canvas = surfaceHolder.lockCanvas();
 
+            // see if the user disabled line mode or not
+            boolean lineMode = model.getLineMode();
 
+            // change the background according to the darkMode variable
             boolean darkMode = model.getDarkMode();
             if (darkMode){
                 canvas.drawColor(Color.BLACK);
@@ -130,10 +128,10 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
                 paint.setColor(Color.BLACK);
             }
 
-
+            // thickness of the lines
             paint.setStrokeWidth(5);
 
-
+            // the starting vertical line in the middle
             canvas.drawLine(model.getMiddleX(),model.getMaxY()-200-sa.getOffset500(), model.getMiddleX(), model.getMaxY()-sa.getOffset500(),paint);
 
             //Left and Right Initial points with offset
@@ -144,18 +142,13 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
             canvas.drawLine(model.getInitialPointLeftX(), model.getInitialPointY(),model.getMiddleX(), model.getMaxY()-sa.getOffset500(), paint);
             canvas.drawLine(model.getInitialPointRightX(),model.getInitialPointY(),model.getMiddleX(),model.getMaxY()-sa.getOffset500(),paint);
 
-            canvas.drawRect(model.getMiddleX(), model.getMaxY()-model.getMiddleX(),model.getMiddleX(),model.getMaxY()-200,paint);
-            paint.setColor(Color.GREEN);
-            canvas.drawLine(0,0,717,1601,paint);
-            paint.setColor(Color.BLACK);
 
-/*
+            // the color background
             if(sa.getCounter()>=8) {
-                counter=0;
-
                 Point points[] = model.getPoints();
                 int colorOffset=0;
-                int colorLimit = 7;
+                int colorLimit = 9;
+                int counter = 0;
                 for (int i = 0; i < 90; i++){
                     if (i != 9 && i != 19 && i != 29 && i != 39 && i != 49 && i != 59 && i != 69 && i!= 79 && i!=89 ) {
                         Path path = new Path();
@@ -164,65 +157,57 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
                         path.lineTo( points[i + 11].x, points[i + 11].y);
                         path.lineTo( points[i + 1].x, points[i + 1].y);
                         path.lineTo( points[i].x, points[i].y);
-                        if (colorOffset == 0) {
-                            taint.setColor(Color.argb(255,128,0,0));
-                        }else if (colorOffset == 1){
-                            taint.setColor(Color.argb(255,178,34,34));
-                        }else if (colorOffset == 2){
-                            taint.setColor(Color.argb(255,165,42,42));
-                        }else if (colorOffset == 3){
-                            taint.setColor(Color.argb(255,205,92,92));
-                        }else if (colorOffset == 4){
-                            taint.setColor(Color.argb(255,255,0,0));
-                        }else if (colorOffset == 5){
-                            taint.setColor(Color.argb(255,255,69,0));
-                        }else if (colorOffset == 6){
-                            taint.setColor(Color.argb(255,255,127,80));
-                        }else if (colorOffset == 7){
-                            taint.setColor(Color.argb(255,240,128,128));
-                        }else if (colorOffset == 8){
-                            taint.setColor(Color.argb(255,233,150,122));
-                        }else if (colorOffset == 9){
-                            taint.setColor(Color.argb(255,255,160,122));
-                        }else if (colorOffset == 10){
-                            taint.setColor(Color.argb(255,255,165,0));
-                        }else if (colorOffset == 11){
-                            taint.setColor(Color.argb(255,255,215,0));
-                        }else if (colorOffset == 12){
-                            taint.setColor(Color.argb(255,240,230,140));
-                        }else if (colorOffset == 13){
-                            taint.setColor(Color.argb(255,238,232,170));
-                        }else if (colorOffset == 14){
-                            taint.setColor(Color.argb(255,165,42,42));
-                        }else if (colorOffset == 15){
-                            taint.setColor(Color.argb(255,165,42,42));
-                        }else if (colorOffset == 16){
-                            taint.setColor(Color.argb(255,165,42,42));
+
+                        if (darkMode){
+                            taint.setColor(Color.argb(255,colorArray2[colorOffset],0,0));
+                        }else {
+                            taint.setColor(Color.argb(255, 255, colorArray[colorOffset], colorArray[colorOffset]));
                         }
                         canvas.drawPath(path, taint);
                         colorOffset++;
                         if (colorLimit == colorOffset){
                             colorLimit++;
-                            colorOffset = 0;
+                            counter++;
+                            colorOffset = counter;
                         }
                     }
                 }
             }
-*/
 
-            for (int i = 0; i < sa.getCounter(); i++){
-                canvas.drawLine(model.getInitialPointLeftX(), model.getInitialPointY(), model.getxNum()[i], model.getyNum()[i]-sa.getOffset500(), paint);
-                canvas.drawLine(model.getInitialPointRightX(), model.getInitialPointY(), model.getxNum2()[i], model.getyNum2()[i]-sa.getOffset500(), paint);
-
+            // draw the background lines
+            if (!lineMode) {
+                for (int i = 0; i < sa.getCounter(); i++) {
+                    canvas.drawLine(model.getInitialPointLeftX(), model.getInitialPointY(), model.getxNum()[i], model.getyNum()[i]-sa.getOffset500(), paint);
+                    canvas.drawLine(model.getInitialPointRightX(), model.getInitialPointY(), model.getxNum2()[i], model.getyNum2()[i]-sa.getOffset500(), paint);
+                }
             }
 
+            //draw the player sprite
             if (sa.getCounter()>=8){
-                paint.setColor(Color.BLACK);
+                // if the player is holding, it will charge the sprite
+                if (player.getHold()){
+                    long time = Math.abs(player.getStart()-System.currentTimeMillis());
+                    Log.d("Time: ", String.valueOf(time));
+                    if (time < 500){
+                        if (darkMode){
+                            paint.setColor(Color.WHITE);
+                        }else {
+                            paint.setColor(Color.BLACK);
+                        }
+                    }else if (time >= 500 && time < 1000){
+                        paint.setColor(Color.argb(255,235,140,0));
+                    }else if (time >= 1000 && time < 1500){
+                        paint.setColor(Color.argb(255,224,48,30));
+                    }else if (time >= 1500){
+                        paint.setColor(Color.argb(255,163,32,32));
+                    }
+                }
+
+                // get the four coords and draw the cell for the sprite
                 Point bot = player.getBot();
                 Point left = player.getLeft();
                 Point right = player.getRight();
                 Point top = player.getTop();
-
                 Path playerCell = new Path();
                 playerCell.moveTo( bot.x, bot.y);
                 playerCell.lineTo( right.x, right.y);
@@ -231,7 +216,6 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
                 playerCell.lineTo( bot.x, bot.y);
                 canvas.drawPath(playerCell, paint);
             }
-
             surfaceHolder.unlockCanvasAndPost(canvas);
         }
     }
@@ -241,17 +225,20 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
     public boolean onTouchEvent(MotionEvent motionEvent){
         switch (motionEvent.getAction() & MotionEvent.ACTION_MASK){
             case MotionEvent.ACTION_UP:
+                player.setHold(false);
                 player.update();
+                player.setEnd(System.currentTimeMillis());
                 update();
                 break;
             case MotionEvent.ACTION_DOWN:
-
+                if (!player.getHold()){
+                    player.setStart(System.currentTimeMillis());
+                    player.setHold(true);
+                }
                 break;
-
         }
         return true;
     }
-
 
     private void control(){
         try{
@@ -276,8 +263,6 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
         gameThread.start();
     }
 
-
-
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
         Canvas c = getHolder().lockCanvas();
@@ -286,12 +271,8 @@ public class GameView extends SurfaceView implements Runnable, Observer, Surface
     }
 
     @Override
-    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
-
-    }
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {}
 
     @Override
-    public void surfaceDestroyed(SurfaceHolder holder) {
-
-    }
+    public void surfaceDestroyed(SurfaceHolder holder) {}
 }

@@ -15,30 +15,20 @@ import android.widget.ImageButton;
  */
 
 public class pauseView extends Activity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.pause_view);
-
-
 
         final Button resume = findViewById(R.id.resumeButton2);
         resume.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 finish();
-                //overridePendingTransition(0, 0);
                 overridePendingTransition(R.layout.fade_in, R.layout.fade_out);
-
             }
         });
-
     }
-
-
-
 }

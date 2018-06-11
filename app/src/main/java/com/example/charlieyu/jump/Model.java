@@ -17,6 +17,7 @@ public class Model extends Observable {
 
     // Private Variables
     public boolean darkMode;
+    public boolean lineMode;
 
     private int maxX;
     private int maxY;
@@ -52,6 +53,7 @@ public class Model extends Observable {
         xNum2 = new float[10];
         yNum2 = new float[10];
         darkMode = false;
+        lineMode = false;
 
         points = new Point[100];
     }
@@ -114,7 +116,6 @@ public class Model extends Observable {
             }
         }
 
-
         Log.d("initialPointLeftX", String.valueOf(initialPointLeftX));
         Log.d("initialPointRightX", String.valueOf(initialPointRightX));
         Log.d("initialPointY", String.valueOf(initialPointY));
@@ -123,8 +124,6 @@ public class Model extends Observable {
 
         Log.d("maxX",String.valueOf(maxX));
         Log.d("maxY",String.valueOf(maxY));
-
-
     }
 
     // getters for the arrays coords
@@ -191,6 +190,15 @@ public class Model extends Observable {
         return darkMode;
     }
 
+    // set the line mode
+    public void setLineMode(boolean change) {
+        lineMode = change;
+    }
+
+    // get the line mode boolean
+    public boolean getLineMode(){
+        return lineMode;
+    }
 
     // Observable methods
     public void initObservers(){

@@ -1,7 +1,9 @@
 package com.example.charlieyu.jump;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.graphics.Color;
@@ -23,10 +25,9 @@ import java.util.Observer;
 public class MainActivity extends AppCompatActivity implements Observer {
     // Private Variables
     //background backGround;
-     GameView gameView;
+    GameView gameView;
     dynamicBackground dB;
     Model model;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
 
         dB = new dynamicBackground(this);
         setContentView(R.layout.activity_main);
-
         addContentView(dB,  new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         // Get model instance
@@ -54,16 +54,6 @@ public class MainActivity extends AppCompatActivity implements Observer {
         //calculate all the coords at once
         model.calcCoords();
         gameView = new GameView(this);
-        // draw the background
-//        backGround = new background(this);
-//        backGround.setBackgroundColor(Color.WHITE);
-//        //setContentView(backGround);
-//        // draw the GameView
-//        gameView = new GameView(this);
-//        gameView.setBackgroundColor(Color.WHITE);
-
-
-
 
         //if the start button is pressed
         final ImageButton startButton = findViewById(R.id.buttonPlay);
@@ -82,14 +72,12 @@ public class MainActivity extends AppCompatActivity implements Observer {
             public void onClick(View v){
                 Intent intent = new Intent(v.getContext(), option.class);
                 startActivity(intent);
+                overridePendingTransition(R.layout.fade_in, R.layout.fade_out);
             }
-
         });
 
         model.initObservers();
-
     }
-
 
     @Override
     public void update(Observable o, Object arg){

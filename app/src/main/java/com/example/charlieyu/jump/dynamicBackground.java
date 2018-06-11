@@ -40,8 +40,7 @@ public class dynamicBackground extends View implements Observer{
         model.initObservers();
         paint = new Paint();
 
-
-        //init sa
+        //init start animation
         sa = new startAnimation(context);
     }
 
@@ -55,9 +54,7 @@ public class dynamicBackground extends View implements Observer{
         float maxX = model.getMaxX();
         float maxY = model.getMaxY();
         float middleX = maxX/2;
-        float middleY = maxY/2;
         double theta=.11;
-        float offset=200;
         final float initialPointLeftX=-middleX - middleX;
         final float initialPointRightX=middleX*3 + middleX;
         final float initialPointY=maxY - middleX - middleX - 750;
@@ -72,8 +69,6 @@ public class dynamicBackground extends View implements Observer{
         canvas.drawLine(initialPointLeftX, initialPointY,middleX, maxY-500, paint);
         canvas.drawLine(initialPointRightX,initialPointY,middleX,maxY-500,paint);
 
-        canvas.drawRect(middleX, maxY-middleX,middleX,maxY-200,paint);
-
         float x, x2 ;
         float y, y2 ;
 
@@ -85,7 +80,7 @@ public class dynamicBackground extends View implements Observer{
 
         double dec = .01;
 
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 2; i++){
             float offsetLengthLeft= (float) (initialLengthLeft*Math.tan(theta));
             float newoffsetLeft= (float) (offsetLengthLeft/Math.sqrt(2));
 
@@ -102,13 +97,10 @@ public class dynamicBackground extends View implements Observer{
             canvas.drawLine(initialPointLeftX,initialPointY,x,y-500, paint);
             canvas.drawLine(initialPointRightX,initialPointY,x2,y2-500, paint);
         }
-
     }
 
     @Override
     public void update(Observable o, Object arg){
         Log.d("TEST", "updated");
     }
-
-
 }

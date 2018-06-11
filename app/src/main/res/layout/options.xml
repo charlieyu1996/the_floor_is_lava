@@ -56,6 +56,36 @@
 
         />
 
+    <TextView
+        android:id="@+id/lineView"
+        android:layout_width="wrap_content"
+
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+
+        android:layout_marginTop="188dp"
+        android:fontFamily="@font/bungee_hairline"
+        android:text="@string/lines"
+        android:textColor="@android:color/background_dark"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Switch
+        android:id="@+id/lineSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="196dp"
+        android:scaleX="1.2"
+        android:scaleY="1.2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        />
+
     <ImageButton
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"

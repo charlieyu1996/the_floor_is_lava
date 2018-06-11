@@ -7,4 +7,5 @@
     <string name="darkMode">Dark Mode</string>
     <string name="gamePause">Game Paused</string>
     <string name="resume">Resume</string>
+    <string name="lines">Disable Lines</string>
 </resources>

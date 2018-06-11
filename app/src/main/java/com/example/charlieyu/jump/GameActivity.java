@@ -65,18 +65,9 @@ public class GameActivity extends AppCompatActivity {
         pauseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 onPause();
-               // Intent intent = new Intent(v.getContext(), pauseView.class);
                 Intent intent = new Intent(v.getContext(), option.class);
                 startActivity(intent);
-                // don't do activity transition activity
-
                 overridePendingTransition(R.layout.fade_in, R.layout.fade_out);
-              //  overridePendingTransition(0, 0);
-
-
-
-
-
             }
         });
     }
@@ -85,7 +76,6 @@ public class GameActivity extends AppCompatActivity {
     protected void onPause(){
         super.onPause();
         gameView.pause();
-
     }
 
     @Override
@@ -93,5 +83,4 @@ public class GameActivity extends AppCompatActivity {
         super.onResume();
         gameView.resume();
     }
-
 }
