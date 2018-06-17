@@ -22,7 +22,6 @@ public class Model extends Observable {
     private int maxX;
     private int maxY;
     private float middleX;
-    private double theta;
     private float initialPointLeftX;
     private float initialPointRightX;
     private float initialPointY;
@@ -30,7 +29,6 @@ public class Model extends Observable {
     private float y, y2 ;
     private float initialLengthLeft;
     private float initalLengthRight;
-    private double dec;
 
     // Lines of the cells
     private float[] xNum;
@@ -46,8 +44,6 @@ public class Model extends Observable {
         maxX = 0;
         maxY = 0;
         middleX = 0;
-        theta = 0.11;
-        dec = 0.01;
         xNum = new float[10];
         yNum = new float[10];
         xNum2 = new float[10];
@@ -60,7 +56,11 @@ public class Model extends Observable {
 
     //calculate the variables
     public void calcCoords(){
-        middleX = maxX/2;
+        double theta=0.11;
+        double dec=0.01;
+        middleX = getMaxX()/2;
+        maxY=getMaxY();
+        maxX=getMaxX();
         initialPointLeftX=-middleX*2;
         initialPointRightX=middleX*4;
         initialPointY=(maxY - maxX - middleX- 200);
@@ -98,7 +98,6 @@ public class Model extends Observable {
             }
             dec *= 0.95;
             theta = theta - dec;
-            Log.d("POINTS RIGHT INT:", String.valueOf(xNum[i])+","+String.valueOf(yNum[i]));
         }
 
         // calculate the four coords
@@ -112,18 +111,8 @@ public class Model extends Observable {
                 Point intersection = lineLineIntersection(A, C, B, D);
                 points[counter] = intersection;
                 counter++;
-                Log.d("Intersect:",String.valueOf(intersection.x)+','+String.valueOf(intersection.y)+"Points correspond:"+String.valueOf(xNum[i])+","+yNum[i]);
             }
         }
-
-        Log.d("initialPointLeftX", String.valueOf(initialPointLeftX));
-        Log.d("initialPointRightX", String.valueOf(initialPointRightX));
-        Log.d("initialPointY", String.valueOf(initialPointY));
-        Log.d("initialLengthLeft", String.valueOf(initialLengthLeft));
-        Log.d("initialLengthRight", String.valueOf(initalLengthRight));
-
-        Log.d("maxX",String.valueOf(maxX));
-        Log.d("maxY",String.valueOf(maxY));
     }
 
     // getters for the arrays coords
