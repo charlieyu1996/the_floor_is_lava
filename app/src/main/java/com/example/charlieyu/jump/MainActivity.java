@@ -1,22 +1,16 @@
 package com.example.charlieyu.jump;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.graphics.Color;
 import android.util.Log;
 import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -66,11 +60,11 @@ public class MainActivity extends AppCompatActivity implements Observer {
             }
         });
 
-        //if the option button is pressed
+        //if the Option button is pressed
         final ImageButton optionButton = findViewById(R.id.buttonOption);
         optionButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent intent = new Intent(v.getContext(), option.class);
+                Intent intent = new Intent(v.getContext(), Option.class);
                 startActivity(intent);
                 overridePendingTransition(R.layout.fade_in, R.layout.fade_out);
             }

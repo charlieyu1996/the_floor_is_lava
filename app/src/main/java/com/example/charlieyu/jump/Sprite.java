@@ -5,44 +5,55 @@ import android.graphics.Canvas;
 
 public class Sprite {
 
-    private float x;
-    private float y;
+    public float xdir;
+    public float ydir;
 
     private int screenWidth;
     private int screenHeight;
+    private final float speedX = 0.002f;
+    private float speedY = 0.002f;
+
+    private float directionX = 1;
+    private float directionY = 1;
 
     private Bitmap image;
 
-    public Sprite(int screenWidth, int screenHeight){
-        this.x=30;
-        this.y=30;
+    public Sprite(int screenWidth, int screenHeight) {
+        this.xdir = 30;
+        this.ydir = 30;
 
-        this.screenHeight=screenHeight;
-        this.screenWidth=screenWidth;
+        this.screenHeight = screenHeight;
+        this.screenWidth = screenWidth;
     }
 
-    public void init(Bitmap image){
-        this.image=image;
+    public void init(Bitmap image) {
+        this.image = image;
     }
 
-    public void draw(Canvas canvas){
-        canvas.drawBitmap(image,x,y,null);
-
+    public void draw(Canvas canvas, float x, float y) {
+        canvas.drawBitmap(image, x, y, null);
     }
 
     public float getX() {
-        return x;
-    }
-
-    public void setX(float x) {
-        this.x = x;
+        return xdir;
     }
 
     public float getY() {
-        return y;
+        return ydir;
     }
 
-    public void setY(float y) {
-        this.y = y;
+    public void update(int speed,float x, float y ) {
+        
+        if(!(xdir>x)){
+            xdir = xdir + speed;
+        }else{
+            xdir=xdir-speed;
+        }
+
+        if(!(ydir>y)){
+            ydir = ydir + speed;
+        }else {
+            ydir = ydir - speed;
+        }
     }
 }
